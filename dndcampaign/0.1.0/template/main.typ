@@ -13,8 +13,6 @@
 
 #outline(indent: 1em)
 
-// #set heading(numbering: "1.")
-
 = A New Adventure
 
 #dropParagraph(smallCapitals: "This package is designed to aid you in")[
@@ -224,7 +222,7 @@ By using the `setThemeColour(color)` command you can set the colour to any colou
 The table above has been set to `dmglavender`. The default theme colour is `phbgreen`.
 
 #fancyCommentBox[
-  "It's Mauve, darling" she said, "very sophisticated. You wouldn't know about it."
+  "It's lavender, darling" she said, "very sophisticated. You wouldn't know about it."
 
-  "It's clearly... pinkish." The man retorted.
+  "It's clearly... pinkish." her friend retorted.
 ]

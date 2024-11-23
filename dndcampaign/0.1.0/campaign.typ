@@ -127,13 +127,14 @@
   // ========================
   set par(first-line-indent: 1em, spacing: 0.75*fontsize, leading: 0.5*fontsize)
 
-  set heading(numbering: (..nums) => 
-    if nums.pos().len() == 1 { 
-      return "Chapter " + numbering("1.", ..nums) 
-    } else {
-      return none
-    }
-  )
+  // TODO: broken by internal headings in monster and item blocks.
+  // set heading(numbering: (..nums) => 
+  //   if nums.pos().len() == 1 { 
+  //     return "Chapter " + numbering("1.", ..nums) 
+  //   } else {
+  //     return none
+  //   }
+  // )
 
   doc
 }
@@ -142,14 +143,7 @@
 // sets a theme colours from the colours package of this module
 // or any other colour you want, on you if it looks bad :)
 // The colours recommended are:
-// phbgreen
-// phbcyan
-// phbmauve
-// phbtan
-// dmglavender
-// dmgcoral
-// dmgslategrey (-ay)
-// dmglilac
+// phbgreen, phbcyan, phbmauve, phbtan, dmglavender, dmgcoral, dmgslategrey (-ay), dmglilac
 #let setThemeColour(colour) = {
   context themeColour.update(colour)
 }
