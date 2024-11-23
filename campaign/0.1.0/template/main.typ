@@ -93,3 +93,96 @@ Besides the readaloud, there are a couple other things which may be useful. Such
 
   The LaTeX DndSidebar is a float element, but this one is inline. You should be able to place it though.
 ]
+
+== Tables and More Tables
+
+Tables are styled according to the DnD styling. Due to a current limitation in typst, the header row is not automatically bolded, you will have to do that yourself.
+
+#table(
+  columns: (auto, 1fr),
+  table.header[*d2*][*Items*],
+  [1], [An apple],
+  [2], [Certain death]
+)
+
+#pagebreak()
+
+= Monsters and NPCs
+
+Some time ago I made a simple statblocks module #link("https://github.com/yanwenywan/typst-packages/tree/master/dndstatblock")[which you can find here]. This is included in the project under the *`stat`* name. 
+
+
+
+#beginStat[
+  #stat.statheading("Snakecaller Acolyte", desc: "Medium humanoid, neutral evil")
+
+  #stat.mainstats(ac: "10 (natural armour)", hp_dice: "2d8")
+
+  #stat.ability(10, 10, 11, 10, 14, 11)
+
+  #stat.skill("Skills", [Insight +4, Persuasion +2, Religion +2]) \
+  #stat.skill("Senses", [Passive perception 12]) \
+  #stat.skill("Languages", [Common, Snake-tongue]) \
+  #stat.skill("Challenge", stat.challenge(1))
+
+  #stat.stroke()
+
+  === Dark Devotion
+  The snakecaller acolyte has advantage on saving throws against being charmed or frightened.
+
+  === Speak with Snakes
+  A snakecaller acolyte can speak with snakes within 30 ft., and can utter a one word command as an action. The snake must obey unless it would directly hurt itself.
+
+  === Titanic Might 
+  As a bonus action, a snakecaller acolye can expend a spell slot to cause its melee weapon attacks to magically deal an extra #stat.dice("3d6") poison damage to a target on hit. This benefit lasts until the end of the turn.
+
+  === Spellcasting
+  A cult acolyte is a 2nd level spellcaster. Its spellcasting ability is wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following spells prepared:
+
+  Cantrips (at will): _guidance, light, thaumaturgy_\
+  1st level (3 slots): _bane, cure wounds, guiding bolt, sanctuary_
+
+  == Actions 
+
+  === Poison Dagger 
+  _Melee weapon attack:_ +2 to hit, reach 5 ft., one target. Hit: #stat.dice("1d4") piercing damage. On a hit, the target must make a constitution saving throw (DC 12) and on a fail be poisoned.
+
+  _Adapted from: Cult Acolyte_
+]
+
+Use of it is generally the same as the full statblock module. The initialisation, however, has been modified to fit into another document.
+
+#pagebreak()
+
+= Colours
+
+Colours are awful, awful things? You might object: but they are pretty! And I would agree. However, there is one very tiny niggle with them: you can change the theme colour.#footnote[Please express surprise.]
+
+Typst's layouting system is stateless, i.e. you cannot have global variables that change throughout the document. The only way you can do that is by using `state` and `context`, which comes with a very strict set of limitations that has made developing this rather much harder.
+
+As such, there is less freedom with colours in my typst module (sorry). 
+
+#setThemeColour(colours.dmglavender)
+
+By using the `setThemeColour(color)` command you can set the colour to any colour you want. This will affect the colours of tables, comments, and fancy comments. Whilst you can pick any colour, I recommend the colours included in the package:
+
+#table(
+  columns: (1fr),
+  table.header[*Colour*],
+  [`colours.phbgreen`],
+  [`colours.phbcyan`],
+  [`colours.phbmauve`],
+  [`colours.phbtan`],
+  [`colours.dmglavender`],
+  [`colours.dmgcoral`],
+  [`colours.dmgslategrey (-ay)`],
+  [`colours.dmglilac`],
+)
+
+The table above has been set to `dmglavender`. The default theme colour is `phbgreen`.
+
+#fancyCommentBox[
+  "It's Mauve, darling" she said, "very sophisticated. You wouldn't know about it."
+
+  "It's clearly... pinkish." The man retorted.
+]

@@ -54,37 +54,10 @@
   "30":	"155,000",
 )
 
-#let conf(
-  header_left: [],
-  header_right: [],
-  footertext: [], // goes at the centre of the footer
-  doc
-) = {
+#let smallconf(doc) = {
   set text(font: fonts, size: fontsize)
 
-  set page(
-    paper: "a4",
-    margin: (top: marginy, rest:marginx),
-    header: {
-      set text(fontsize * 0.9)
-      header_left
-      h(1fr) 
-      header_right
-      line(length: 100%, stroke: 0.6pt + dndred)
-    },
-    footer: {
-      set text(fontsize * 0.9)
-      set align(center)
-      footertext
-    }
-  )
-
   set par(leading: 0.5em)
-
-  show heading.where(level: 1) : hd => {
-    set text(font: title, fill: dndred, size: fontsize * 1.8)
-    smallcaps(hd)
-  }
 
   show heading.where(level: 2) : hd => {
     set text(font: sc_fonts, fill: dndred, size: fontsize * 1.2)
@@ -99,7 +72,9 @@
     hd.body + [.]
   )
 
-  columns(2, doc)
+  set heading(outlined: false)
+
+  doc
 }
 
 /// displays a DnD dice average format, e.g. 19 (3d6 + 9) given the number of dice, the sides of dice, and a modifier (which can be set to 0 for no modifier)
@@ -169,9 +144,12 @@
 
 /// header block for monster stats
 #let statheading(
-  title, desc: []
+  titleText, desc: []
 ) = [
-  = #title
+  #{
+    set text(font: title, fill: dndred, size: fontsize * 1.8)
+    smallcaps(titleText)
+  }
   #v(-1.2em)
   _#block(inset: 1em, desc)_ 
   #v(-1.2em)

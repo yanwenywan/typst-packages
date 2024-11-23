@@ -4,7 +4,8 @@
 // also uses a modified version of my statblock library
 // // requires droplet for dropcaps
 
-#import "statblock.typ" as sb
+#import calc
+#import "statblock.typ" as stat
 #import "colours.typ" as colours
 #import "@preview/droplet:0.3.1": dropcap
 
@@ -23,7 +24,6 @@
 
   // ========================
   show heading.where(level: 1) : hd => {
-
     place(
       top + left,
       float: true,
@@ -68,6 +68,25 @@
     set text(fill: colours.dndred, style: "italic")
     lk
   }
+
+  // ========================
+  show table.where(fill: none): tb => {
+    set text(font: sansFonts)
+    
+    context {
+      let col = themeColour.get()
+
+      table(
+        align: tb.align, rows: tb.rows, columns: tb.columns,
+        row-gutter: tb.row-gutter, column-gutter: tb.column-gutter,
+        fill: (_, y) => if calc.odd(y) { col },
+        stroke: none,
+        inset: (left: 5pt, right: 5pt, top: 2.5pt, bottom: 2.5pt),
+        ..tb.children
+      )
+    }
+  }
+
 
   // ========================
   set par(first-line-indent: 1em, spacing: 0.75*fontsize, leading: 0.5*fontsize)
@@ -225,6 +244,7 @@
   ]
 }
 
+
 #let fancyCommentBox(title: [], content) = context {
   let col = themeColour.get();
 
@@ -276,4 +296,13 @@
     )
   ]
 }
+
+
+#let beginStat(content) = block(
+  above: 2em, below: 2em, fill: colours.bgtan, inset: 1em,
+  stroke: (top: 2pt + colours.rulegold, bottom: 2pt + colours.rulegold)
+)[
+  #set table(inset: 0% + 5pt, stroke: none, fill: colours.bgtan)
+  #stat.smallconf(content)
+]
 

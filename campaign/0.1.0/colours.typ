@@ -9,6 +9,7 @@
 // type
 #let dndred = rgb("#58180d")
 #let rulegold = rgb("#C9AD6A")  // subsection rule
+#let shadow = rgb("#AAAAAA")
 
 // trim
 #let brgreen       = rgb("#E8E6DC")  // Basic Rules
