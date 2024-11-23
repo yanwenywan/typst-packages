@@ -21,7 +21,42 @@
 
 #let conf(doc) = {
   set text(font: mainFonts, size: fontsize)
-  set page(columns: 2)
+  set page(
+    columns: 2, 
+    background: context {
+      if calc.odd(counter(page).get().at(0)) {
+        place(
+          bottom + center,
+          image("footer-right.png")
+        )
+      } else {
+        place(
+          bottom + center,
+          image("footer-left.png")
+        )
+      }
+    },
+    footer: context {
+
+      if (counter(page).get() == 0) {
+        none
+      } else {
+        if calc.odd(counter(page).get().at(0)) {
+          place(
+            bottom + right,
+            dx:5.5em, dy: -3em,
+            counter(page).display("1")
+          )
+        } else {
+          place(
+            bottom + left,
+            dx:-5.5em, dy: -3em,
+            counter(page).display("1")
+          )
+        }
+      }
+    }
+  )
 
   // ========================
   show heading.where(level: 1) : hd => {
@@ -130,7 +165,7 @@
 // - anythingBefore: (optional) this is put before the title
 // - anythingAfter: (optional) this is put after the date
 #let makeTitle(title, subtitle: [], author: [], date: [], anythingBefore: [], anythingAfter: []) = {
-  set page(columns: 1)
+  set page(columns: 1, background: none, footer: none)
   set align(center)
   set align(horizon)
   set par(leading: 1em)
@@ -164,6 +199,8 @@
   }
 
   anythingAfter
+
+  counter(page).update(0)
 }
 
 
