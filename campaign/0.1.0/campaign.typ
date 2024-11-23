@@ -7,6 +7,7 @@
 #import calc
 #import "statblock.typ" as stat
 #import "colours.typ" as colours
+#import "dnditem.typ" as item
 #import "@preview/droplet:0.3.1": dropcap
 
 #let mainFonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
@@ -106,14 +107,14 @@
 // sets a theme colours from the colours package of this module
 // or any other colour you want, on you if it looks bad :)
 // The colours recommended are:
-//  - phbgreen
-//  - phbcyan
-//  - phbmauve
-//  - phbtan
-//  - dmglavender
-//  - dmgcoral
-//  - dmgslategrey (-ay)
-//  - dmglilac
+// phbgreen
+// phbcyan
+// phbmauve
+// phbtan
+// dmglavender
+// dmgcoral
+// dmgslategrey (-ay)
+// dmglilac
 #let setThemeColour(colour) = {
   context themeColour.update(colour)
 }
@@ -304,5 +305,14 @@
 )[
   #set table(inset: 0% + 5pt, stroke: none, fill: colours.bgtan)
   #stat.smallconf(content)
+]
+
+
+#let beginItem(content) = block(
+  above: 1em, below: 1em,
+  inset: (top: 0.8em, bottom: 0.8em),
+  // stroke: (top: 1pt + colours.rulegold, bottom: 1pt + colours.rulegold)
+)[
+  #item.conf(content)
 ]
 

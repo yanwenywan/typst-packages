@@ -63,7 +63,50 @@ that still have a block header. These are fourth level titles. Titles below thes
 == Special Sections
 
 
-This module also includes sections for items and spells. These are work in progress.
+This module also includes the `beginItem[]` environment for items and spells, with commands under the `item` name. The two main commands of note are `item.smalltext[]` and `item.flavourtext[]`. Named paragraphs are done with 3rd level headings.
+
+#beginItem[
+  = Automatic Titling Machine 
+
+  #item.smalltext[Magic item, rare, requires attunement]
+
+  #item.flavourtext[
+    A wondrous machine of strange make, rusted yet somehow running smoothly. When put into a block on its own, it opens up a whole new world of styling.
+  ]
+
+  Automatic titling machines are scope-dependent mechanical devices that recreates show rules to make new environments for its text.
+
+  === Automatic titling 
+  Once per scope, the automatic titling machine silently can run a `show` command from a submodule, letting you use typst structures in new and interesting ways.
+]
+
+#beginItem[
+  = Beautiful Typesetting
+  
+  #item.smalltext[4nd-level illusion]
+
+  === Casting time
+  1 action \
+  === Range 
+  5 feet \
+  === Components
+  M (an existing document) \
+  === Duration
+  Until the document is read
+
+  You are able to transform a written message of
+  any length into a beautiful scroll. All creatures
+  within range that can see the scroll must make a
+  wisdom saving throw or be charmed by you until
+  the spell ends.
+
+  While the creature is charmed by you, they
+cannot take their eyes off the scroll and cannot
+willingly move away from the scroll. Also, the
+targets can make a wisdom saving throw at the
+end of each of their turns. On a success, they
+are no longer charmed.
+]
 
 // this is also necessary for good top level title alignment
 #pagebreak()
@@ -109,8 +152,7 @@ Tables are styled according to the DnD styling. Due to a current limitation in t
 
 = Monsters and NPCs
 
-Some time ago I made a simple statblocks module #link("https://github.com/yanwenywan/typst-packages/tree/master/dndstatblock")[which you can find here]. This is included in the project under the *`stat`* name. 
-
+Some time ago I made a simple statblocks module #link("https://github.com/yanwenywan/typst-packages/tree/master/dndstatblock")[which you can find here]. This is included in the project under the *`stat`* name. Use `beginStat[]` to start.
 
 
 #beginStat[
@@ -150,7 +192,7 @@ Some time ago I made a simple statblocks module #link("https://github.com/yanwen
   _Adapted from: Cult Acolyte_
 ]
 
-Use of it is generally the same as the full statblock module. The initialisation, however, has been modified to fit into another document.
+Use of it is generally the same as the full statblock module, except all commands must be prepended with the `stat` qualifier. The initialisation, however, has been modified to fit into another document.
 
 #pagebreak()
 
