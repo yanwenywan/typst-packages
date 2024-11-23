@@ -1,2 +1,2 @@
 **/*.pdf
-!dndcampaign/sample.pdf
+!dndcampaign/**/sample.pdf
