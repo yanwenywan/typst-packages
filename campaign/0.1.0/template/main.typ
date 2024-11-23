@@ -30,6 +30,15 @@
 
 Top level titles are placed at the top as _chapter titles_. Please ensure you pagebreak before a new chapter title else it will be placed wonky.
 
+This module uses various fonts:
+
+- TeX Gyre Bonum is the main body and title text.
+- Scaly Sans is the sans-serif font that is used in comments. (Scaly Sans Caps for small caps)
+- Royal Initalen is the drop-caps title font. 
+- KingHwa_OldSong is the CJK font.
+
+`droplet` is needed for the drop caps.
+
 == Section 
 
 Sections break up chapters into large groups of
@@ -61,4 +70,26 @@ This module also includes sections for items and spells. These are work in progr
 
 = Text Boxes
 
-text
+This module has several text boxes for you to use. Different block environments can be used for different effect.
+
+#readAloud[
+  This is the `readAloud(content)` environment. Truly, a mysterious place that prompts the imagination.
+
+  Supposedly, paragraphs do not indent here. I guess that is true.
+]
+
+== Besides, Becomments
+
+Besides the readaloud, there are a couple other things which may be useful. Such as the comment box:
+
+#commentBox(title: "This is a comment box!")[
+  A `commentBox(title: [], content)` is a box for minimal highlighting of text. It lacks the ornamentation of `fancyCommentBox`. This is also themable.
+]
+
+#bump() If you want to go extra fancy, you can use the fancyCommentBox. This is a recreation of the `DndSidebar` of the latex module, but because of typst's flexibility, this should handle being breakable no problem. If you want, you can choose to float it too like any other block.
+
+#fancyCommentBox(title: "This is a fancy comment box!")[
+  This comment box is decorated to look fancier than usual. 
+
+  The LaTeX DndSidebar is a float element, but this one is inline. You should be able to place it though.
+]
