@@ -144,6 +144,9 @@
 // or any other colour you want, on you if it looks bad :)
 // The colours recommended are:
 // phbgreen, phbcyan, phbmauve, phbtan, dmglavender, dmgcoral, dmgslategrey (-ay), dmglilac
+// 
+// Parameters:
+// - colour: the theme colour
 #let setThemeColour(colour) = {
   context themeColour.update(colour)
 }
@@ -198,6 +201,11 @@
 }
 
 
+// Makes a paragraph with a drop captial
+//
+// Parameters:
+// - smallCapitals: (optional) any text which you wish to be rendered in small caps, like how DnD Does it
+// - body: anything else
 #let dropParagraph(smallCapitals: "", body) = {
   if smallCapitals != "" {
     dropcap(
@@ -211,19 +219,27 @@
 }
 
 
+// Manually does a 1em paragraph space
 #let bump() = h(1em)
 
 
+// A paragraph with a bold italic name at the start
+// 
+// Parameters;
+// - title: the bold italic name, a full stop / period is put immediately after for you
+// - content: everything else
 #let namedPar(title, content) = [
   _*#title*__*.*_ #content
 ]
 
 
+// See namedPar but this one is in a block environment
 #let namedParBlock(title, content) = block[
   _*#title*__*.*_ #content
 ]
 
 
+// A tan coloured read-aloud box with some decorations
 #let readAloud(content) = {
   let corner(alignment, dxMod: 1, dyMod: 1) = place(
       alignment,
@@ -255,6 +271,11 @@
 }
 
 
+// A theme-coloured plain comment box
+//
+// Parameters:
+// - title: (optional) a title in bold small caps
+// - content:
 #let commentBox(title: [], content) = context {
   let col = themeColour.get();
 
@@ -277,6 +298,11 @@
 }
 
 
+// A theme-coloured fancy comment box with decorations
+//
+// Parameters:
+// - title: (optional) a title in bold small caps
+// - content:
 #let fancyCommentBox(title: [], content) = context {
   let col = themeColour.get();
 
@@ -330,6 +356,7 @@
 }
 
 
+// begins the monster statblock environment
 #let beginStat(content) = block(
   above: 2em, below: 2em, fill: colours.bgtan, inset: 1em,
   stroke: (top: 2pt + colours.rulegold, bottom: 2pt + colours.rulegold)
@@ -339,6 +366,7 @@
 ]
 
 
+// begins the item environment
 #let beginItem(content) = block(
   above: 1em, below: 1em,
   inset: (top: 0.8em, bottom: 0.8em),
