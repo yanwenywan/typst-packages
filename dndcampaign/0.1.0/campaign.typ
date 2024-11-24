@@ -16,6 +16,18 @@
 #let dropcapFont = "Royal Initialen"
 #let fontsize = 10pt
 
+#let pageNumberMargin = (
+  0cm,
+  1.2cm,
+  1.3cm,
+  1.4cm,
+  1.5cm,
+  1.6cm,
+  1.7cm,
+  1.8cm,
+  1.9cm
+)
+
 #let themeColour = state("theme_colour", colours.phbgreen)
 
 
@@ -23,6 +35,7 @@
   set text(font: mainFonts, size: fontsize)
   set page(
     columns: 2, 
+    margin: (x: 1.75cm, y: 1.75cm),
     background: context {
       if calc.odd(counter(page).get().at(0)) {
         place(
@@ -38,23 +51,49 @@
     },
     footer: context {
 
-      if (counter(page).get() == 0) {
-        none
+      set text(size: 0.9*fontsize, fill: colours.pagegold)
+
+      let counterNum = counter(page).display("1")
+      let numLen = counterNum.len()
+      let xAdjust = 1.07cm + 0.1cm * numLen
+      let yAdjust = -3em
+
+      if calc.odd(counter(page).get().at(0)) {
+        place(
+          bottom + right,
+          dx:xAdjust, dy: yAdjust,
+          counterNum
+        )
       } else {
+        place(
+          bottom + left,
+          dx:-xAdjust, dy: yAdjust,
+          counterNum
+        )
+      }
+
+      let chapters = query(selector(heading.where(level: 1, outlined: true)).before(here()))
+      let chapterYAdjust = -3.5em
+
+      if (chapters.len() > 0) {
+        let currentChapter = chapters.last()
+        let ccText = currentChapter.body
+
         if calc.odd(counter(page).get().at(0)) {
           place(
             bottom + right,
-            dx:5.5em, dy: -3em,
-            counter(page).display("1")
+            dy: chapterYAdjust,
+            smallcaps(ccText)
           )
         } else {
           place(
             bottom + left,
-            dx:-5.5em, dy: -3em,
-            counter(page).display("1")
+            dy: chapterYAdjust,
+            smallcaps(ccText)
           )
         }
       }
+      
     }
   )
 
