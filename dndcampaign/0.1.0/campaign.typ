@@ -138,6 +138,8 @@
     columns(2, outl)
   }
 
+  set outline(depth: 3)
+
   // ========================
   show link: lk => {
     set text(fill: colours.dndred, style: "italic")
@@ -162,6 +164,10 @@
     }
   }
 
+
+  // ========================
+  
+  show figure.caption: smallcaps
 
   // ========================
   set par(first-line-indent: 1em, spacing: 0.75*fontsize, leading: 0.5*fontsize)
@@ -328,7 +334,7 @@
   )[
     #set par(leading: 0.5 * fontsize, first-line-indent: 0em, spacing: 0.8*fontsize)
     #set text(font: sansSCFonts)
-    *#title*
+    #title
     // #v(-0.5em)
 
     #set text(font: sansFonts)
@@ -359,7 +365,7 @@
   )[
     #set par(leading: 0.5 * fontsize, first-line-indent: 0em, spacing: 0.8*fontsize)
     #set text(font: sansSCFonts)
-    *#title*
+    #title
 
     #set text(font: sansFonts)
     #content
@@ -393,6 +399,15 @@
     )
   ]
 }
+
+
+#let sctitle(content) = block(
+  above: 0.8em, below: 0.2em,
+  {
+    set text(font: sansSCFonts)
+    smallcaps(content)
+  }
+)
 
 
 // begins the monster statblock environment

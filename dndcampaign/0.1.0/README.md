@@ -101,6 +101,9 @@ Parameters:
 - content
 
 ---
+**sctitle**`[]`. Makes a small caps header block
+
+---
 **beginStat**`[]`. begins the monster statblock environment
 
 ---

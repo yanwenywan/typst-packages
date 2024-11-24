@@ -50,7 +50,7 @@ for the reader. These are third level titles.
 ==== Subsubsection
 
 Subsubsections are the furthest division of text
-that still have a block header. These are fourth level titles. Titles below these are not styled, use at your own risk.
+that still have a block header. These are fourth level titles. Titles below these are not styled, use at your own risk. Note that these and below will not appear in the outline.
 
 #namedPar("Paragraph")[
   The `namedPar(title)[]` function creates a named paragraph, formatted how you'd expect it to be in the books. If this paragraph is below a block, then the auto-indenting wont work (due to typst's seeming lack of universal indent, PR if I'm wrong), use `bump()` at the start to bump it up.
@@ -139,12 +139,28 @@ Besides the readaloud, there are a couple other things which may be useful. Such
 
 Tables are styled according to the DnD styling. Due to a current limitation in typst, the header row is not automatically bolded, you will have to do that yourself.
 
+#sctitle[Make a nice title with `sctitle`]
 #table(
   columns: (auto, 1fr),
   table.header[*d2*][*Items*],
   [1], [An apple],
   [2], [Certain death]
 )
+
+It is recommended to `#place` figures (like #ref(<snakecaller>)) with `float: true, scope: "parent"` for best results, as that spans columns.
+
+#place(
+  bottom + center,
+  float: true,
+  scope: "parent",
+  [
+    #figure(
+      image("snakecaller-guild.png", width: 100%),
+      caption: [The Snakecallers of Ashralan]
+    ) <snakecaller> 
+  ]
+) 
+
 
 #pagebreak()
 

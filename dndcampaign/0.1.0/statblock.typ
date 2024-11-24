@@ -57,7 +57,7 @@
 #let smallconf(doc) = {
   set text(font: fonts, size: fontsize)
 
-  set par(leading: 0.5em)
+  set par(leading: 0.5em, first-line-indent: 0pt)
 
   show heading.where(level: 2) : hd => {
     set text(font: sc_fonts, fill: dndred, size: fontsize * 1.2)
