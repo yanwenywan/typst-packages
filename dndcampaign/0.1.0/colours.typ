@@ -5,6 +5,7 @@
 // page 
 #let bgtan = rgb("#F7F2E5")  // readAloud
 #let pagegold = rgb("B89A67")  // numbering
+#let clear = rgb("ffffff00")
 
 // type
 #let dndred = rgb("#58180d")

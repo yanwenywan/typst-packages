@@ -139,7 +139,7 @@
 
 
 #let stroke() = {
-  line(stroke: (paint: gradient.linear(dndred, white), thickness: 1.5pt), length: 100%)
+  line(stroke: (paint: gradient.linear(dndred, colour.bgtan), thickness: 1.5pt), length: 100%)
 }
 
 /// header block for monster stats
