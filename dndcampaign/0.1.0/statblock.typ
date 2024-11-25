@@ -7,13 +7,7 @@
 #import calc
 #import "colours.typ" as colour
 
-#let title = ("TeX Gyre Bonum", "KingHwa_OldSong")
-#let fonts = ("Scaly Sans Remake", "KingHwa_OldSong")
-#let sc_fonts = ("Scaly Sans Caps", "KingHwa_OldSong")
-#let fontsize = 10pt
 #let dndred = colour.dndred
-#let marginx = 2cm
-#let marginy = 2.5cm
 #let challenge_xp = (
   "0":	"0",
   "0.125": "25",
@@ -54,13 +48,36 @@
   "30":	"155,000",
 )
 
-#let smallconf(doc) = {
-  set text(font: fonts, size: fontsize)
+#let default_title_font = ("TeX Gyre Bonum", "KingHwa_OldSong")
+#let default_body_fonts = ("Scaly Sans Remake", "KingHwa_OldSong")
+#let default_smallcaps_fonts = ("Scaly Sans Caps", "KingHwa_OldSong")
+#let default_font_size = 10pt
+
+#let current_title_font = state("title_font", default_title_font)
+#let current_body_font = state("body_font", default_body_fonts)
+#let current_smallcap_fonts = state("smallcap_font", default_smallcaps_fonts)
+#let current_font_size = state("font_size", default_font_size)
+
+
+#let smallconf(
+  doc,
+  fontsize: default_font_size,
+  title_font: default_title_font,
+  body_font: default_body_fonts,
+  smallcap_font: default_smallcaps_fonts,
+) = {
+
+  current_title_font.update(title_font)
+  current_body_font.update(default_body_fonts)
+  current_smallcap_fonts.update(default_smallcaps_fonts)
+  current_font_size.update(default_font_size)
+
+  set text(font: body_font, size: fontsize)
 
   set par(leading: 0.5em, first-line-indent: 0pt)
 
   show heading.where(level: 2) : hd => {
-    set text(font: sc_fonts, fill: dndred, size: fontsize * 1.2)
+    set text(font: smallcap_font, fill: dndred, size: fontsize * 1.2)
     hd
     v(-1em)
     line(length: 100%, stroke: 0.6pt + dndred)
@@ -145,9 +162,9 @@
 /// header block for monster stats
 #let statheading(
   titleText, desc: []
-) = [
+) = context [
   #{
-    set text(font: title, fill: dndred, size: fontsize * 1.8)
+    set text(font: current_title_font.get(), fill: dndred, size: current_font_size.get() * 1.8)
     smallcaps(titleText)
   }
   #v(-1.2em)
@@ -193,19 +210,21 @@
   }
 
   // main content
-  stroke()
-  v(-0.5em)
-  set align(center)
-  set table(stroke: none, align: center, row-gutter: -0.75em)
-  set text(size: fontsize*0.9, fill: dndred)
-  show table.cell.where(y: 0): strong
-  table(
-    columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
-    table.header(.."STR DEX CON INT WIS CHA".split(" ")),
-    ..modifiers
-  )
-  v(-0.5em)
-  stroke()
+  context {
+    stroke()
+    v(-0.5em)
+    set align(center)
+    set table(stroke: none, align: center, row-gutter: -0.75em)
+    set text(size: current_font_size.get()*0.9, fill: dndred)
+    show table.cell.where(y: 0): strong
+    table(
+      columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+      table.header(.."STR DEX CON INT WIS CHA".split(" ")),
+      ..modifiers
+    )
+    v(-0.5em)
+    stroke()
+  }
 }
 
 

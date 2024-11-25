@@ -10,11 +10,12 @@
 #import "dnditem.typ" as item
 #import "@preview/droplet:0.3.1": dropcap
 
-#let mainFonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
-#let sansFonts = ("Scaly Sans Remake", "KingHwa_OldSong")
-#let sansSCFonts = ("Scaly Sans Caps", "KingHwa_OldSong")
-#let dropcapFont = "Royal Initialen"
-#let fontsize = 10pt
+#let defaultMainFonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
+#let defaultTitleFonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
+#let defaultSansFonts = ("Scaly Sans Remake", "KingHwa_OldSong")
+#let defaultSansSCFonts = ("Scaly Sans Caps", "KingHwa_OldSong")
+#let defaultDropcapFont = "Royal Initialen"
+#let defaultFontsize = 10pt
 
 #let pageNumberMargin = (
   0cm,
@@ -29,10 +30,33 @@
 )
 
 #let themeColour = state("theme_colour", colours.phbgreen)
+#let themeMainFont = state("main_font", defaultMainFonts)
+#let themeTitleFont = state("title_font", defaultTitleFonts)
+#let themeSansFont = state("sans_font", defaultSansFonts)
+#let themeSansSCFont = state("sans_sc_font", defaultSansSCFonts)
+#let themeDropcapFont = state("dropcap_font", defaultDropcapFont)
+#let themeFontsize = state("font_size", defaultFontsize)
 
 
-#let conf(doc) = {
-  set text(font: mainFonts, size: fontsize)
+#let conf(
+  doc,
+  fontsize: defaultFontsize,
+  mainFont: defaultMainFonts,
+  titleFont: defaultTitleFonts,
+  sansFont: defaultSansFonts,
+  sansSmallcapsFont: defaultSansSCFonts,
+  dropcapFont: defaultDropcapFont,
+) = {
+  
+  themeFontsize.update(fontsize)
+  themeMainFont.update(mainFont)
+  themeTitleFont.update(titleFont)
+  themeSansFont.update(sansFont)
+  themeSansSCFont.update(sansSmallcapsFont)
+  themeDropcapFont.update(dropcapFont)
+
+  set text(font: mainFont, size: fontsize)
+
   set page(
     columns: 2, 
     margin: (x: 1.75cm, y: 1.75cm),
@@ -50,8 +74,8 @@
       }
     },
     footer: context {
-
-      set text(size: 0.9*fontsize, fill: colours.pagegold)
+      // the footer deliberately will not use theme font size, as it would disrupt placement
+      set text(size: 0.9*defaultFontsize, fill: colours.pagegold)
 
       let counterNum = counter(page).display("1")
       let numLen = counterNum.len()
@@ -103,17 +127,17 @@
       top + left,
       float: true,
       scope: "parent",
-      text(smallcaps(hd) ,fill: colours.dndred, size: 2.8*fontsize, weight: "regular")
+      text(smallcaps(hd) ,fill: colours.dndred, size: 2.8*fontsize, weight: "regular", font: titleFont)
     )
   }
 
   show heading.where(level: 2) : hd => {
-    set text(fill: colours.dndred, weight: "regular", size: 2*fontsize)
+    set text(fill: colours.dndred, weight: "regular", size: 2*fontsize, font: titleFont)
     block(smallcaps(hd.body))
   }
 
   show heading.where(level: 3) : hd => {
-    set text(fill: colours.dndred, weight: "regular", size: 1.6*fontsize)
+    set text(fill: colours.dndred, weight: "regular", size: 1.6*fontsize, font: titleFont)
     // [#hd.fields()]
     block(
       [
@@ -126,7 +150,7 @@
   }
 
   show heading.where(level: 4) : hd => {
-    set text(fill: colours.dndred, weight: "regular", size: 1.2*fontsize)
+    set text(fill: colours.dndred, weight: "regular", size: 1.2*fontsize, font: titleFont)
     block(smallcaps(hd.body))
     
   }
@@ -149,7 +173,7 @@
 
   // ========================
   show table.where(fill: none): tb => {
-    set text(font: sansFonts)
+    set text(font: sansFont)
     
     context {
       let col = themeColour.get()
@@ -215,30 +239,34 @@
 
   anythingBefore
 
-  line(
-    start: (0%, 0%), length: 60%, 
-    stroke: (paint: gradient.linear(white, colours.dndred, white), thickness: 1.5pt)
-  )
-  {
-    show: smallcaps.with()
-    set text(fill: colours.dndred, size: fontsize*2.5)
-    title
-  }
-  if subtitle != [] {
-    linebreak()
-    set text(fill: colours.dndred, size: fontsize*1.4)
-    subtitle
-  }
-  line(
-    start: (0%, 0%), length: 60%, 
-    stroke: (paint: gradient.linear(white, colours.dndred, white), thickness: 1.5pt)
-  )
-  {
-    set text(fill: colours.dndred, size: fontsize*1.4)
-    v(2em)
-    author
-    v(1em)
-    date
+  context {
+
+    line(
+      start: (0%, 0%), length: 60%, 
+      stroke: (paint: gradient.linear(white, colours.dndred, white), thickness: 1.5pt)
+    )
+    {
+      show: smallcaps.with()
+      set text(fill: colours.dndred, size: themeFontsize.get()*2.5, font: themeTitleFont.get())
+      title
+    }
+    if subtitle != [] {
+      linebreak()
+      set text(fill: colours.dndred, size: themeFontsize.get()*1.4)
+      subtitle
+    }
+    line(
+      start: (0%, 0%), length: 60%, 
+      stroke: (paint: gradient.linear(white, colours.dndred, white), thickness: 1.5pt)
+    )
+    {
+      set text(fill: colours.dndred, size: themeFontsize.get()*1.4)
+      v(2em)
+      author
+      v(1em)
+      date
+    }
+
   }
 
   anythingAfter
@@ -252,15 +280,15 @@
 // Parameters:
 // - smallCapitals: (optional) any text which you wish to be rendered in small caps, like how DnD Does it
 // - body: anything else
-#let dropParagraph(smallCapitals: "", body) = {
+#let dropParagraph(smallCapitals: "", body) = context {
   if smallCapitals != "" {
     dropcap(
       [#smallcaps(smallCapitals) #body], 
-      height: 4, gap: 0.3em, font: dropcapFont
+      height: 4, gap: 0.3em, font: themeDropcapFont.get()
     )
   } 
   else {
-    dropcap(body, height: 4, gap: 0.3em, font: dropcapFont)
+    dropcap(body, height: 4, gap: 0.3em, font: themeDropcapFont.get())
   }
 }
 
@@ -288,33 +316,47 @@
 // A tan coloured read-aloud box with some decorations
 #let readAloud(content) = {
   let corner(alignment, dxMod: 1, dyMod: 1) = place(
-      alignment,
-      dx: dxMod * (1em + 2pt),
-      dy: dyMod * (1em + 2pt),
-      circle(fill: colours.dndred, radius: 2pt),
-    )
+    alignment,
+    dx: dxMod * (1em + 2pt),
+    dy: dyMod * (1em + 2pt),
+    circle(fill: colours.dndred, radius: 2pt),
+  )
 
-  block(
-    width: 100%,
-    inset: 1em, 
-    fill: colours.bgtan,
-    above: 1em,
-    below: 1em,
-    stroke: (
-      right: 1pt + colours.dndred,
-      left: 1pt + colours.dndred,
-    ),
-    breakable: true
-  )[
-    #set text(font: sansFonts)
-    #set par(leading: 0.5 * fontsize, first-line-indent: 0em, spacing: 0.8*fontsize)
-    #content 
-    #corner(top + left, dxMod: -1, dyMod: -1)
-    #corner(top + right, dxMod: 1, dyMod: -1)
-    #corner(bottom + left, dxMod: -1, dyMod: 1)
-    #corner(bottom + right, dxMod: 1, dyMod: 1)
-  ]
+  context {
+
+    block(
+      width: 100%,
+      inset: 1em, 
+      fill: colours.bgtan,
+      above: 1em,
+      below: 1em,
+      stroke: (
+        right: 1pt + colours.dndred,
+        left: 1pt + colours.dndred,
+      ),
+      breakable: true
+    )[
+      #set text(font: themeSansFont.get())
+      #set par(leading: 0.5 * themeFontsize.get(), first-line-indent: 0em, spacing: 0.8*themeFontsize.get())
+      #content 
+      #corner(top + left, dxMod: -1, dyMod: -1)
+      #corner(top + right, dxMod: 1, dyMod: -1)
+      #corner(bottom + left, dxMod: -1, dyMod: 1)
+      #corner(bottom + right, dxMod: 1, dyMod: 1)
+    ]
+
+  }
 }
+
+
+#let commonCommentBox(title, content) = [
+  #set par(leading: 0.5 * themeFontsize.get(), first-line-indent: 0em, spacing: 0.8*themeFontsize.get())
+  #set text(font: themeSansSCFont.get())
+  #smallcaps(title)
+
+  #set text(font: themeSansFont.get())
+  #content
+]
 
 
 // A theme-coloured plain comment box
@@ -332,15 +374,8 @@
     above: 1em,
     below: 1em,
     breakable: true,
-  )[
-    #set par(leading: 0.5 * fontsize, first-line-indent: 0em, spacing: 0.8*fontsize)
-    #set text(font: sansSCFonts)
-    #title
-    // #v(-0.5em)
-
-    #set text(font: sansFonts)
-    #content
-  ]
+    commonCommentBox(title, content)
+  )
 }
 
 
@@ -364,12 +399,7 @@
       bottom: 1pt + black
     )
   )[
-    #set par(leading: 0.5 * fontsize, first-line-indent: 0em, spacing: 0.8*fontsize)
-    #set text(font: sansSCFonts)
-    #title
-
-    #set text(font: sansFonts)
-    #content
+    #commonCommentBox(title, content)
 
     #place(  // bottom box shadow
       bottom,
@@ -407,31 +437,49 @@
 }
 
 
-#let sctitle(content) = block(
-  above: 0.8em, below: 0.2em,
-  {
-    set text(font: sansSCFonts)
-    smallcaps(content)
-  }
-)
+#let sctitle(content) = context {
+  block(
+    above: 0.8em, below: 0.2em,
+    {
+      set text(font: themeSansSCFont.get())
+      smallcaps(content)
+    }
+  )
+}
+
 
 
 // begins the monster statblock environment
-#let beginStat(content) = block(
-  above: 2em, below: 2em, fill: colours.bgtan, inset: 1em,
-  stroke: (top: 2pt + colours.rulegold, bottom: 2pt + colours.rulegold)
-)[
-  #set table(inset: 0% + 5pt, stroke: none, fill: colours.bgtan)
-  #stat.smallconf(content)
-]
+#let beginStat(content) = context {
+  
+  block(
+    above: 2em, below: 2em, fill: colours.bgtan, inset: 1em,
+    stroke: (top: 2pt + colours.rulegold, bottom: 2pt + colours.rulegold)
+  )[
+    #set table(inset: 0% + 5pt, stroke: none, fill: colours.bgtan)
+    #stat.smallconf(
+      content,
+      fontsize: themeFontsize.get(),
+      title_font: themeMainFont.get(),
+      body_font: themeSansFont.get(),
+      smallcap_font: themeSansSCFont.get()
+    )
+  ]
+
+}
 
 
 // begins the item environment
-#let beginItem(content) = block(
-  above: 1em, below: 1em,
-  inset: (top: 0.8em, bottom: 0.8em),
-  // stroke: (top: 1pt + colours.rulegold, bottom: 1pt + colours.rulegold)
-)[
-  #item.conf(content)
-]
+#let beginItem(content) = context {
+
+  block(
+    above: 1em, below: 1em,
+    inset: (top: 0.8em, bottom: 0.8em),
+    // stroke: (top: 1pt + colours.rulegold, bottom: 1pt + colours.rulegold)
+  )[
+    #item.conf(content, fonts: themeMainFont.get(), fontsize: themeFontsize.get())
+  ]
+
+}
+
 

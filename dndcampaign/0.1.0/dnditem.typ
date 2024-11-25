@@ -1,13 +1,21 @@
 
 #import "colours.typ" as colours 
 
-#let fonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
-#let fontsize = 10pt
+#let default_fonts = ("TeX Gyre Bonum", "KingHwa_OldSong")
+#let default_fontsize = 10pt
 
+#let theme_fonts = state("theme_fonts", default_fonts)
+#let theme_size = state("theme_size", default_fontsize)
 
 #let conf(
-  content
+  content,
+  fonts: default_fonts,
+  fontsize: default_fontsize
 ) = {
+
+  theme_fonts.update(default_fonts)
+  theme_size.update(fontsize)
+
   set text(
     font: fonts,
     size: fontsize
@@ -51,8 +59,8 @@
   #block(inset: (left: 1em), content)
 ]
 
-#let smalltext(content) = {
-  v(-fontsize*0.5)
-  set text(size: fontsize * 0.9, style: "italic", fill: colours.dndred)
+#let smalltext(content) = context {
+  v(-theme_size.get()*0.5)
+  set text(size: theme_size.get() * 0.9, style: "italic", fill: colours.dndred)
   content
 }
