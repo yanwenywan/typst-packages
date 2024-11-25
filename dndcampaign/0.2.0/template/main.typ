@@ -1,6 +1,6 @@
 
-// #import "@preview/dndcampaign:0.1.0": *
-#import "../campaign.typ": *
+#import "@preview/dndcampaign:0.2.0": *
+// #import "../campaign.typ": *
 
 #show: conf.with()
 
