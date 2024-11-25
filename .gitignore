@@ -1,2 +1,3 @@
 **/*.pdf
 !dndcampaign/**/sample.pdf
+.vscode
