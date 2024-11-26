@@ -4,7 +4,7 @@
 
 #show: conf.with()
 
-#makeTitle(
+#make-title(
   [The Holy Path],
   subtitle: [A sample wenyuan-campaign document],
   author: [燕文院 Yanwenyuan],
@@ -15,7 +15,7 @@
 
 = A New Adventure
 
-#dropParagraph(smallCapitals: "This package is designed to aid you in")[
+#drop-paragraph(small-caps: "This package is designed to aid you in")[
   writing _ahem_ possibly beautiful typeset documents for the fifth edition of the world's greatest roleplaying game (or any roleplaying game, for that matter).  It starts by
   adjusting the section formatting from the
   defaults in typst to something a bit more familiar
@@ -52,18 +52,18 @@ for the reader. These are third level titles.
 Subsubsections are the furthest division of text
 that still have a block header. These are fourth level titles. Titles below these are not styled, use at your own risk. Note that these and below will not appear in the outline.
 
-#namedPar("Paragraph")[
+#namedpar("Paragraph")[
   The `namedPar(title)[]` function creates a named paragraph, formatted how you'd expect it to be in the books. If this paragraph is below a block, then the auto-indenting wont work (due to typst's seeming lack of universal indent, PR if I'm wrong), use `bump()` at the start to bump it up.
   ]
 
-#namedParBlock("Paragraph")[If you like your named paragraphs to not be indented, use `namedParBlock()`. This is a block though and requires the subsequent paragraph to be bumped.]
+#namedpar-block("Paragraph")[If you like your named paragraphs to not be indented, use `namedParBlock()`. This is a block though and requires the subsequent paragraph to be bumped.]
 
 == Special Sections
 
 
 This module also includes the `beginItem[]` environment for items and spells, with commands under the `item` name. The two main commands of note are `item.smalltext[]` and `item.flavourtext[]`. Named paragraphs are done with 3rd level headings.
 
-#beginItem[
+#begin-item[
   = Automatic Titling Machine 
 
   #item.smalltext[Magic item, rare, requires attunement]
@@ -78,7 +78,7 @@ This module also includes the `beginItem[]` environment for items and spells, wi
   Once per scope, the automatic titling machine silently can run a `show` command from a submodule, letting you use typst structures in new and interesting ways.
 ]
 
-#beginItem[
+#begin-item[
   = Beautiful Typesetting
   
   #item.smalltext[4nd-level illusion]
@@ -113,7 +113,7 @@ are no longer charmed.
 
 This module has several text boxes for you to use. Different block environments can be used for different effect.
 
-#readAloud[
+#readaloud[
   This is the `readAloud(content)` environment. Truly, a mysterious place that prompts the imagination.
 
   Supposedly, paragraphs do not indent here. I guess that is true.
@@ -123,13 +123,13 @@ This module has several text boxes for you to use. Different block environments 
 
 Besides the readaloud, there are a couple other things which may be useful. Such as the comment box:
 
-#commentBox(title: "This is a comment box!")[
+#comment-box(title: "This is a comment box!")[
   A `commentBox(title: [], content)` is a box for minimal highlighting of text. It lacks the ornamentation of `fancyCommentBox`. This is also themable.
 ]
 
 #bump() If you want to go extra fancy, you can use the fancyCommentBox. This is a recreation of the `DndSidebar` of the latex module, but because of typst's flexibility, this should handle being breakable no problem. If you want, you can choose to float it too like any other block.
 
-#fancyCommentBox(title: "This is a fancy comment box!")[
+#fancy-comment-box(title: "This is a fancy comment box!")[
   This comment box is decorated to look fancier than usual. 
 
   The LaTeX DndSidebar is a float element, but this one is inline. You should be able to place it though.
@@ -169,7 +169,7 @@ It is recommended to `#place` figures (like #ref(<snakecaller>)) with `float: tr
 Some time ago I made a simple statblocks module #link("https://github.com/yanwenywan/typst-packages/tree/master/dndstatblock")[which you can find here]. This is included in the project under the *`stat`* name. Use `beginStat[]` to start.
 
 
-#beginStat[
+#begin-stat[
   #stat.statheading("Snakecaller Acolyte", desc: "Medium humanoid, neutral evil")
 
   #stat.mainstats(ac: "10 (natural armour)", hp_dice: "2d8")
@@ -218,7 +218,7 @@ Typst's layouting system is stateless, i.e. you cannot have global variables tha
 
 As such, there is less freedom with colours in my typst module (sorry). 
 
-#setThemeColour(colours.dmglavender)
+#set-theme-colour(colours.dmglavender)
 
 By using the `setThemeColour(color)` command you can set the colour to any colour you want. This will affect the colours of tables, comments, and fancy comments. Whilst you can pick any colour, I recommend the colours included in the package:
 
@@ -237,7 +237,7 @@ By using the `setThemeColour(color)` command you can set the colour to any colou
 
 The table above has been set to `dmglavender`. The default theme colour is `phbgreen`.
 
-#fancyCommentBox[
+#fancy-comment-box[
   "It's lavender, darling" she said, "very sophisticated. You wouldn't know about it."
 
   "It's clearly... pinkish." her friend retorted.

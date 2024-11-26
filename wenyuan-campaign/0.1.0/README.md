@@ -55,79 +55,90 @@ You are encouraged to copy the template files and modify them if they are not up
 
 # Main Functions
 
-**setThemeColour**`(colour: color)`. 
-sets a theme colours from the colours package of this module
-or any other colour you want, on you if it looks bad :)
-The colours recommended are:
+**set-theme-colour**`(colour: color)`.  
+Sets a theme colour from the colours package of this module or any other colour you want—up to you if it looks bad :)  
+The colours recommended are:  
 > phbgreen, phbcyan, phbmauve, phbtan, dmglavender, dmgcoral, dmgslategrey (-ay), dmglilac
 
 ---
 
-**makeTitle**`(title: content, subtitle: content = [], author: content = [], date: content = [], anythingBefore: content = [], anythingAfter: content = [])`. 
+**make-title**`(title: content, subtitle: content = [], author: content = [], date: content = [], anything-before: content = [], anything-after: content = [])`.  
 Makes a simple title page.
 
-Parameters:
-- title: main book title
-- subtitle: (optional) subtitle
-- author: (optional)
-- date: (optional) -- just acts as a separate line, can be used for anything else
-- anythingBefore: (optional) this is put before the title
-- anythingAfter: (optional) this is put after the date
+Parameters:  
+- title: main book title  
+- subtitle: (optional) subtitle  
+- author: (optional)  
+- date: (optional) -- just acts as a separate line, can be used for anything else  
+- anything-before: (optional) this is put before the title  
+- anything-after: (optional) this is put after the date  
 
 ---
 
-**dropParagraph**`(smallCapitals: string = "", body: content)`. 
-Makes a paragraph with a drop captial
+**drop-paragraph**`(small-caps: string = "", body: content)`.  
+Makes a paragraph with a drop capital.
 
-Parameters:
-- smallCapitals: (optional) any text which you wish to be rendered in small caps, like how DnD Does it
-- body: anything else
-
-
----
-**bump**`()`. Manually does a 1em paragraph space
+Parameters:  
+- small-caps: (optional) any text you wish to be rendered in small caps, like how DnD does it  
+- body: anything else  
 
 ---
 
-**namedPar**`(title: content, content: content)`.
-A paragraph with a bold italic name at the start
-
-Parameters;
-- title: the bold italic name, a full stop / period is put immediately after for you
-- content: everything else
-
+**bump**`()`.  
+Manually does a 1em paragraph space  
 
 ---
-**namedParBlock**`(title: content, content: content)`.
-See namedPar but this one is in a block environment
+
+**namedpar**`(title: content, content: content)`.  
+A paragraph with a bold italic name at the start.
+
+Parameters:  
+- title: the bold italic name; a full stop/period is added immediately after for you  
+- content: everything else  
 
 ---
-**readAloud**`[]`. A tan coloured read-aloud box with some decorations
+
+**namedpar-block**`(title: content, content: content)`.  
+See **namedpar**, but this one is in a block environment.  
 
 ---
-**commentBox**`(title: content = [], content: content)`.
-A theme-coloured plain comment box
 
-Parameters:
-- title: (optional) a title in bold small caps
-- content
+**readaloud**`[]`.  
+A tan-coloured read-aloud box with some decorations.  
 
 ---
-**fancyCommentBox**`(title: content = [], content: content)`.
-A theme-coloured fancy comment box with decorations
 
-Parameters:
-- title: (optional) a title in bold small caps
-- content
+**comment-box**`(title: content = [], content: content)`.  
+A theme-coloured plain comment box.
 
----
-**sctitle**`[]`. Makes a small caps header block
+Parameters:  
+- title: (optional) a title in bold small caps  
+- content  
 
 ---
-**beginStat**`[]`. begins the monster statblock environment
+
+**fancy-comment-box**`(title: content = [], content: content)`.  
+A theme-coloured fancy comment box with decorations.
+
+Parameters:  
+- title: (optional) a title in bold small caps  
+- content  
 
 ---
-**beginItem**`[]`. begins the item environment
+
+**sctitle**`[]`.  
+Makes a small caps header block.  
+
+---
+
+**begin-stat**`[]`.  
+Begins the monster statblock environment.  
+
+---
+
+**begin-item**`[]`.  
+Begins the item environment.  
+
 
 # Statblock
 

@@ -8,7 +8,7 @@
 #import "colours.typ" as colour
 
 #let dndred = colour.dndred
-#let challenge_xp = (
+#let challenge-xp = (
   "0":	"0",
   "0.125": "25",
   "1/8": "25",
@@ -48,36 +48,36 @@
   "30":	"155,000",
 )
 
-#let default_title_font = ("TeX Gyre Bonum", "KingHwa_OldSong")
-#let default_body_fonts = ("Scaly Sans Remake", "KingHwa_OldSong")
-#let default_smallcaps_fonts = ("Scaly Sans Caps", "KingHwa_OldSong")
-#let default_font_size = 10pt
+#let default-title-font = ("TeX Gyre Bonum", "KingHwa_OldSong")
+#let default-body-fonts = ("Scaly Sans Remake", "KingHwa_OldSong")
+#let default-smallcaps-fonts = ("Scaly Sans Caps", "KingHwa_OldSong")
+#let default-font-size = 10pt
 
-#let current_title_font = state("title_font", default_title_font)
-#let current_body_font = state("body_font", default_body_fonts)
-#let current_smallcap_fonts = state("smallcap_font", default_smallcaps_fonts)
-#let current_font_size = state("font_size", default_font_size)
+#let current-title-font = state("title_font", default-title-font)
+#let current-body-font = state("body_font", default-body-fonts)
+#let current-smallcap-fonts = state("smallcap_font", default-smallcaps-fonts)
+#let current-font-size = state("font_size", default-font-size)
 
 
 #let smallconf(
   doc,
-  fontsize: default_font_size,
-  title_font: default_title_font,
-  body_font: default_body_fonts,
-  smallcap_font: default_smallcaps_fonts,
+  fontsize: default-font-size,
+  title-font: default-title-font,
+  body-font: default-body-fonts,
+  smallcap-font: default-smallcaps-fonts,
 ) = {
 
-  current_title_font.update(title_font)
-  current_body_font.update(default_body_fonts)
-  current_smallcap_fonts.update(default_smallcaps_fonts)
-  current_font_size.update(default_font_size)
+  current-title-font.update(title-font)
+  current-body-font.update(default-body-fonts)
+  current-smallcap-fonts.update(default-smallcaps-fonts)
+  current-font-size.update(default-font-size)
 
-  set text(font: body_font, size: fontsize)
+  set text(font: body-font, size: fontsize)
 
   set par(leading: 0.5em, first-line-indent: 0pt)
 
   show heading.where(level: 2) : hd => {
-    set text(font: smallcap_font, fill: dndred, size: fontsize * 1.2)
+    set text(font: smallcap-font, fill: dndred, size: fontsize * 1.2)
     hd
     v(-1em)
     line(length: 100%, stroke: 0.6pt + dndred)
@@ -95,14 +95,14 @@
 }
 
 /// displays a DnD dice average format, e.g. 19 (3d6 + 9) given the number of dice, the sides of dice, and a modifier (which can be set to 0 for no modifier)
-#let diceRaw(numDice, diceFace, modifier) = {
-  let average = calc.floor(((diceFace + 1)/2) * numDice + modifier)
+#let dice-raw(num-dice, dice-face, modifier) = {
+  let average = calc.floor(((dice-face + 1)/2) * num-dice + modifier)
   if (modifier > 0) {
-    [#average (#numDice;d#diceFace + #modifier)]
+    [#average (#num-dice;d#dice-face + #modifier)]
   } else if (modifier < 0) {
-    [#average (#numDice;d#diceFace - #(-modifier))]
+    [#average (#num-dice;d#dice-face - #(-modifier))]
   } else {
-    [#average (#numDice;d#diceFace)]
+    [#average (#num-dice;d#dice-face)]
   }
 }
 
@@ -140,15 +140,15 @@
     modifier = 0
   }
 
-  diceRaw(numDice, diceValue, modifier)
+  dice-raw(numDice, diceValue, modifier)
 }
 
 /// takes an integer CR and formats with experience
 /// will do nothing if CR is not a standard number
 /// represent non integer CRs as decimals
 #let challenge(cr) = {
-  if (str(cr) in challenge_xp.keys()) {
-    [#cr (#challenge_xp.at(str(cr)) XP)]
+  if (str(cr) in challenge-xp.keys()) {
+    [#cr (#challenge-xp.at(str(cr)) XP)]
   } else {
     [#cr]
   }
@@ -161,11 +161,11 @@
 
 /// header block for monster stats
 #let statheading(
-  titleText, desc: []
+  title-text, desc: []
 ) = context [
   #{
-    set text(font: current_title_font.get(), fill: dndred, size: current_font_size.get() * 1.8)
-    smallcaps(titleText)
+    set text(font: current-title-font.get(), fill: dndred, size: current-font-size.get() * 1.8)
+    smallcaps(title-text)
   }
   #v(-1.2em)
   _#block(inset: 1em, desc)_ 
@@ -184,12 +184,12 @@
 
 /// AC, HP, Speed stats
 /// expects hp_dice as a valid dice value. If you don't want to use this just use hp_etc
-#let mainstats(ac: "", hp_dice: "", speed: "30ft", hp_etc: "") = [
+#let mainstats(ac: "", hp-dice: "", speed: "30ft", hp-etc: "") = [
   #skill("Armor Class", ac) \
-  #if (hp_dice != "") [
-    #skill("Hit Points")[#dice(hp_dice) #hp_etc]
+  #if (hp-dice != "") [
+    #skill("Hit Points")[#dice(hp-dice) #hp-etc]
   ] else [
-    #skill("Hit Points")[#hp_etc]
+    #skill("Hit Points")[#hp-etc]
   ] \
   #skill("Speed", speed)
 ]
@@ -215,7 +215,7 @@
     v(-0.5em)
     set align(center)
     set table(stroke: none, align: center, row-gutter: -0.75em)
-    set text(size: current_font_size.get()*0.9, fill: dndred)
+    set text(size: current-font-size.get()*0.9, fill: dndred)
     show table.cell.where(y: 0): strong
     table(
       columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
