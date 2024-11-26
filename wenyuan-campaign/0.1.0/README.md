@@ -146,40 +146,51 @@ Begins the item environment.
 
 ## stat functions
 
-**dice**`(value:str)` parses a dice string (e.g. `3d6` or `3d6+2` or `3d6-1`) and returns a formatted dice value (e.g. "10 (3d6)"). Specifically, the types of string it accepts are:
+**dice**`(value: str)`  
+Parses a dice string (e.g., `3d6`, `3d6+2`, or `3d6-1`) and returns a formatted dice value (e.g., "10 (3d6)"). Specifically, the types of strings it accepts are:
 
-> `\d+d\d+([+-]\d+)?` (number `d` number `+/-` number)
+> `\d+d\d+([+-]\d+)?` (number `d` number `+/-` number)  
 
-(You need to make sure the string is correct)
-
----
-
-**diceRaw**`(numDice:int, diceFace:int, modifier:int)` is a helper function of the above and can optionally be used -- it takes all values as integer values and prints the correct formatting.
+(You need to ensure the string is correct.)  
 
 ---
 
-**statheading**`(title, desc = [])` takes a title and description, and formats it into a top-level monster name heading. `desc` is the description of the monster, e.g. *Medium humanoid, neutral evil* but can be anything. 
+**dice-raw**`(num-dice: int, dice-face: int, modifier: int)`  
+A helper function for the above, optionally used. It takes all values as integers and prints the correct formatting.  
 
 ---
-**stroke**`()` draws a red stroke with a fading right edge.
+
+**statheading**`(title, desc = [])`  
+Takes a title and description, formatting it into a top-level monster name heading. `desc` is the description of the monster, e.g., *Medium humanoid, neutral evil*, but it can be anything.  
 
 ---
-**mainstats**`(ac = "", hp_dice = "", speed = "30ft", hp_etc = "")` produces the **Armor Class**, **Hit Points**, **Speed** in one go. All fields are optional. `hp_dice` takes a *valid dice string only* -- if you do not want to use dice leave it blank and use `hp_etc`. No restrictions on other fields.
+
+**stroke**`()`.  
+Draws a red stroke with a fading right edge.  
 
 ---
-**ability**`(str, dex, con, int, wis, cha)` Takes the six ability scores (base value) as integers and formats it into a table with appropriate modifiers.
+
+**main-stats**`(ac = "", hp-dice = "", speed = "30ft", hp-etc = "")`  
+Produces **Armor Class**, **Hit Points**, and **Speed** in one go. All fields are optional. `hp-dice` accepts a *valid dice string only*—if you do not want to use dice, leave it blank and use `hp-etc`. No restrictions on other fields.  
 
 ---
-**challenge**`(cr:str)` takes a numeric challenge (as a string) rating and formats it along with the XP (if the challenge rating is valid). All CRs between 0-30 are valid, along with the fractional `1/8`, `1/4`, `1/2` (which can be written in decimal form too, e.g. `0.125`).
+
+**ability**`(str, dex, con, int, wis, cha)`  
+Takes the six ability scores (base values) as integers and formats them into a table with appropriate modifiers.  
 
 ---
-**skill**`(title, contents)` takes a title and description, and is a single skills entry. For example, `#skill("Challenge", challenge(1))` will produce (in red)
 
-> **Challenge** 1 (200 XP)
-
-(This uses `challenge` from above)
+**challenge**`(cr: str)`  
+Takes a numeric challenge rating (as a string) and formats it along with the XP (if the challenge rating is valid). All CRs between 0–30 are valid, including the fractional `1/8`, `1/4`, `1/2` (which can also be written in decimal form, e.g., `0.125`).  
 
 ---
+
+**skill**`(title, contents)`  
+Takes a title and description, creating a single skills entry. For example, `#skill("Challenge", challenge(1))` will produce (in red):  
+
+> **Challenge** 1 (200 XP)  
+
+(This uses `challenge` from above.)  
 
 **Section headers** such as *Actions* or *Reactions* are done using the second-level header `==`
 
@@ -204,7 +215,11 @@ Begins the item environment.
 **flavourtext**`[]`. Indented italic flavour text
 
 
-## Acknowledgments
+# Sample
+
+![sample](./sample.png)
+
+# Acknowledgments
 
 - The overall style is based on the [Dnd 5e LaTeX Template](https://github.com/rpgtex/DND-5e-LaTeX-Template), which in turn replicate the base DnD aesthetic.
 - TeX Gyre Bonum by GUST e-Foundry is used for the body text
