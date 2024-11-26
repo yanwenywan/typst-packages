@@ -313,6 +313,7 @@
 ]
 
 
+
 // A tan coloured read-aloud box with some decorations
 #let readaloud(content) = {
   let corner(alignment, dxMod: 1, dyMod: 1) = place(
@@ -336,11 +337,13 @@
       ),
       breakable: true
     )[
+      #corner(top + left, dxMod: -1, dyMod: -1)
+      #corner(top + right, dxMod: 1, dyMod: -1)
+
       #set text(font: theme-sans-font.get())
       #set par(leading: 0.5 * theme-fontsize.get(), first-line-indent: 0em, spacing: 0.8*theme-fontsize.get())
       #content 
-      #corner(top + left, dxMod: -1, dyMod: -1)
-      #corner(top + right, dxMod: 1, dyMod: -1)
+      
       #corner(bottom + left, dxMod: -1, dyMod: 1)
       #corner(bottom + right, dxMod: 1, dyMod: 1)
     ]
@@ -399,6 +402,17 @@
       bottom: 1pt + black
     )
   )[
+    #place(  // top left
+      top,
+      dx: -1em, dy: - 1em - 4.4pt,
+      polygon(fill: black, stroke: none, (6pt, 0pt), (6pt, 4pt), (0pt, 4pt))
+    )
+    #place(  // top right
+      top + right ,
+      dx: 1em, dy: - 1em - 4.4pt,
+      polygon(fill: black, stroke: none, (0pt, 0pt), (0pt, 4pt), (6pt, 4pt))
+    )
+
     #_common-comment-box(title, content)
 
     #place(  // bottom box shadow
@@ -422,16 +436,6 @@
       bottom + right,
       dx: 1em, dy: 1em + 4.4pt,
       polygon(fill: black, stroke: none, (0pt, 0pt), (6pt, 0pt), (0pt, 4pt))
-    )
-    #place(  // top left
-      top,
-      dx: -1em, dy: - 1em - 4.4pt,
-      polygon(fill: black, stroke: none, (6pt, 0pt), (6pt, 4pt), (0pt, 4pt))
-    )
-    #place(  // top right
-      top + right ,
-      dx: 1em, dy: - 1em - 4.4pt,
-      polygon(fill: black, stroke: none, (0pt, 0pt), (0pt, 4pt), (6pt, 4pt))
     )
   ]
 }
@@ -461,9 +465,9 @@
     #stat.smallconf(
       content,
       fontsize: theme-fontsize.get(),
-      title_font: theme-main-font.get(),
-      body_font: theme-sans-font.get(),
-      smallcap_font: theme-sans-sc-font.get()
+      title-font: theme-main-font.get(),
+      body-font: theme-sans-font.get(),
+      smallcap-font: theme-sans-sc-font.get()
     )
   ]
 

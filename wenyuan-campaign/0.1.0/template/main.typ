@@ -172,7 +172,7 @@ Some time ago I made a simple statblocks module #link("https://github.com/yanwen
 #begin-stat[
   #stat.statheading("Snakecaller Acolyte", desc: "Medium humanoid, neutral evil")
 
-  #stat.mainstats(ac: "10 (natural armour)", hp_dice: "2d8")
+  #stat.mainstats(ac: "10 (natural armour)", hp-dice: "2d8")
 
   #stat.ability(10, 10, 11, 10, 14, 11)
 
