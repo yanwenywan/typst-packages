@@ -1,13 +1,13 @@
 
-#import "@preview/dndcampaign:0.2.0": *
-// #import "../campaign.typ": *
+// #import "@preview/dndcampaign:0.2.0": *
+#import "../campaign.typ": *
 
 #show: conf.with()
 
 #makeTitle(
   [The Holy Path],
-  subtitle: [A sample dndcampaign document],
-  author: [Yanwenyuan],
+  subtitle: [A sample wenyuan-campaign document],
+  author: [燕文院 Yanwenyuan],
   date: [2024]
 )
 
@@ -28,12 +28,12 @@
 
 Top level titles are placed at the top as _chapter titles_. Please ensure you pagebreak before a new chapter title else it will be placed wonky.
 
-This module uses various fonts:
+This module uses various fonts (#link("https://github.com/yanwenywan/typst-packages/tree/master/wenyuan-campaign/0.1.0/template/fonts")[Download them here]):
 
-- TeX Gyre Bonum is the main body and title text.
-- Scaly Sans is the sans-serif font that is used in comments. (Scaly Sans Caps for small caps)
-- Royal Initalen is the drop-caps title font. 
-- KingHwa_OldSong is the CJK font.
+- *TeX Gyre Bonum* is the main body and title text.
+- *Scaly Sans* is the sans-serif font that is used in comments. (*Scaly Sans Caps* for small caps)
+- *Royal Initalen* is the drop-caps title font. 
+- *KingHwa_OldSong* is the CJK font.
 
 `droplet` is needed for the drop caps.
 
