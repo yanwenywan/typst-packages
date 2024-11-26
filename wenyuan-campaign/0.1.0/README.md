@@ -1,4 +1,4 @@
-# dndcampaign
+# wenyuan-campaign
 
 A template for writing RPG campaigns imitating the 5e theme. This was made as a typst version of the $\LaTeX$ package [DnD 5e LaTeX Template](https://github.com/rpgtex/DND-5e-LaTeX-Template), though it is not functionally nor entirely visually similar.
 
@@ -14,12 +14,12 @@ Fonts:
 - Royal Initalen
 - 京華老宋体 KingHwa OldSong
 
-***Please note: in an effort to reduce the file size of the template, whilst fonts are included in the repository, they are excluded from download explicitly in the TOML.*** You may find the fonts in my [github repository in the fonts folder](https://github.com/yanwenywan/typst-packages/tree/master/dndcampaign/0.1.0/template/fonts).
+***Please note: in an effort to reduce the file size of the template, fonts are included in MY repository only, not in the typst official one.*** You may find the fonts in my [github repository in the fonts folder](https://github.com/yanwenywan/typst-packages/tree/master/wenyuan-campaign/0.1.0/template/fonts), or download them yourself, or heck provide your own fonts to your liking.
 
 # Usage
 
 ```
-typst init @preview/dndcampaign:0.1.0
+typst init @preview/wenyuan-campaign:0.1.0
 ```
 
 This will copy over all required fonts and comes prefilled with the standard template so you can see how it works. To use this you need to either install all the fonts locally or pass the folder into --font-path when compiling.
@@ -29,12 +29,27 @@ This will copy over all required fonts and comes prefilled with the standard tem
 To initialise the style, do:
 
 ```typ
-#import "@preview/dndcampaign:0.1.0": *
+#import "@preview/wenyuan-campaign:0.1.0": *
 
 #show: conf.with() 
 ```
 
 Very easy.
+
+Optionally, you may set all the theme fonts from the configure function (the defaults are shown):
+
+```typ
+#import "@preview/wenyuan-campaign:0.1.0": *
+
+#show: conf.with(
+    fontsize: 10pt,
+    mainFont: ("TeX Gyre Bonum", "KingHwa_OldSong"),
+    titleFont: ("TeX Gyre Bonum", "KingHwa_OldSong"),
+    sansFont: ("Scaly Sans Remake", "KingHwa_OldSong"),
+    sansSmallcapsFont: ("Scaly Sans Caps", "KingHwa_OldSong"),
+    dropcapFont: "Royal Initialen"
+) 
+```
 
 You are encouraged to copy the template files and modify them if they are not up to your liking.
 

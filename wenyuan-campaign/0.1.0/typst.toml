@@ -1,14 +1,14 @@
 [package]
-name = "dndcampaign"
-version = "0.2.0"
+name = "wenyuan-campaign"
+version = "0.1.0"
 entrypoint = "campaign.typ"
 authors = ["Yan Xin <@yanwenywan>"]
 description = "Easily write DnD 5e style campaign documents."
 categories = ["layout", "text", "book"]
 license = "Apache-2.0"
 keywords = ["rpg", "5e", "dnd", "campaign"]
-repository = "https://github.com/yanwenywan/typst-packages/tree/master/dndcampaign"
-exclude = ["**/*.pdf", "template/fonts/*"]
+repository = "https://github.com/yanwenywan/typst-packages/tree/master/wenyuan-campaign"
+exclude = ["**/*.pdf"]
 
 [template]
 path = "template"
