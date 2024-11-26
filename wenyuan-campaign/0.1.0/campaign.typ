@@ -445,6 +445,7 @@
   ..children
 ) = context {
   let col = theme-colour.get()
+  set text(font: theme-sans-font.get())
 
   table(
     columns: columns, rows: rows, 
