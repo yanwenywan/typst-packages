@@ -17,7 +17,7 @@
 #let default-dropcap-font = "Royal Initialen"
 #let default-fontsize = 10pt
 
-#let pageNumberMargin = (
+#let page-number-margin = (
   0cm,
   1.2cm,
   1.3cm,
