@@ -38,13 +38,20 @@
 #let theme-fontsize = state("font_size", default-fontsize)
 
 
+/// Main configuration function. Use `#show conf.with()`.
 #let conf(
-  doc,
+  doc, 
+  /// Main body font size (default 10pt) -> length
   fontsize: default-fontsize,
+  /// Body text (default tex gyre and kinghwa) -> array
   main-font: default-main-fonts,
+  /// Title text (default tex gyre and kinghwa) -> array
   title-font: default-title-fonts,
+  /// Font used in readalouds and comment boxes (default scaly sans) -> array
   sans-font: default-sans-fonts,
+  /// The default sans-font doesn't have smallcaps built in in a way typst knows so scaly sans smallcaps is separate -> array
   sans-smallcaps-font: default-sans-sc-fonts,
+  /// For the main chapter drop capitals (default Royal Initialen) -> array
   dropcap-font: default-dropcap-font,
 ) = {
   
@@ -194,30 +201,47 @@
 }
 
 
-// sets a theme colours from the colours package of this module
-// or any other colour you want, on you if it looks bad :)
-// The colours recommended are:
-// phbgreen, phbcyan, phbmauve, phbtan, dmglavender, dmgcoral, dmgslategrey (-ay), dmglilac
-// 
-// Parameters:
-// - colour: the theme colour
-#let set-theme-colour(colour) = {
+/// sets a theme colours from the `colours` package of this module
+/// or any other colour you want, on you if it looks bad :)
+/// The colours recommended are:
+/// `phbgreen`, `phbcyan`, `phbmauve`, `phbtan`, `dmglavender`, `dmgcoral`, `dmgslategrey` (-ay), `dmglilac`
+#let set-theme-colour(
+  /// -> color
+  colour
+) = {
   context theme-colour.update(colour)
 }
 
 
-// Makes a simple title page
-// 
-// Parameters:
-// - title: main book title
-// - subtitle: (optional) subtitle
-// - author: (optional)
-// - date: (optional) -- just acts as a separate line, can be used for anything else
-// - anything-before: (optional) this is put before the title
-// - anything-after: (optional) this is put after the date
-// - page-background: (optiona)
-// - text-colour: (optional) the colour the title and bars will be rendered in
-#let make-title(title, subtitle: [], author: [], date: [], anything-before: [], anything-after: [], page-background: none, text-colour: colours.dndred) = {
+/// Makes a simple title page
+/// 
+/// Parameters:
+/// - title: main book title
+/// - subtitle: (optional) subtitle
+/// - author: (optional)
+/// - date: (optional) -- just acts as a separate line, can be used for anything else
+/// - anything-before: (optional) this is put before the title
+/// - anything-after: (optional) this is put after the date
+/// - page-background: (optiona)
+/// - text-colour: (optional) the colour the title and bars will be rendered in
+#let make-title(
+  /// -> content
+  title, 
+  /// Appears in smaller font within the bars under the title -> content
+  subtitle: [], 
+  /// Appears beneath the main title -> content
+  author: [], 
+  /// Appears beneath the author -> content
+  date: [], 
+  /// Appears before the main title -> content
+  anything-before: [], 
+  /// Appears after everything else -> content
+  anything-after: [], 
+  /// -> content
+  page-background: none, 
+  /// The primary title colour -> color
+  text-colour: colours.dndred
+) = {
   set page(columns: 1, background: page-background, footer: none)
   set align(center)
   set align(horizon)
@@ -263,12 +287,13 @@
 }
 
 
-// Makes a paragraph with a drop captial
-//
-// Parameters:
-// - small-caps: (optional) any text which you wish to be rendered in small caps, like how DnD Does it
-// - body: anything else
-#let drop-paragraph(small-caps: "", body) = context {
+/// Makes a paragraph with a drop capital. _N.B._  Since this is rendered in a block unless you have the new typst feature where every paragraph shall be indented you'll need to `#bump()` the next paragraph.
+#let drop-paragraph(
+  /// any text which you wish to be rendered in small caps, like how DnD Does it -> string | content
+  small-caps: "", 
+  /// -> content
+  body
+) = context {
   if small-caps != "" {
     dropcap(
       [#smallcaps(small-caps) #body], 
@@ -281,29 +306,38 @@
 }
 
 
-// Manually does a 1em paragraph space
+/// Manually does a 1em paragraph space
 #let bump() = h(1em)
 
 
-// A paragraph with a bold italic name at the start
-// 
-// Parameters;
-// - title: the bold italic name, a full stop / period is put immediately after for you
-// - content: everything else
-#let namedpar(title, content) = [
+/// A paragraph with a bold italic name at the start
+#let namedpar(
+  /// the bold italic name, a full stop / period is put immediately after for you -> str | content
+  title, 
+  /// -> content
+  content
+) = [
   _*#title*__*.*_ #content
 ]
 
 
-// See namedPar but this one is in a block environment
-#let namedpar-block(title, content) = block[
+/// See `namedpar` but this one is in a block environment
+#let namedpar-block(
+  /// -> str|content
+  title, 
+  /// content
+  content
+) = block[
   _*#title*__*.*_ #content
 ]
 
 
 
-// A tan coloured read-aloud box with some decorations
-#let readaloud(content) = {
+/// A tan coloured read-aloud box with some decorations
+#let readaloud(
+  /// -> content
+  content
+) = {
   let corner(alignment, dxMod: 1, dyMod: 1) = place(
     alignment,
     dx: dxMod * (1em + 2pt),
@@ -350,12 +384,13 @@
 ]
 
 
-// A theme-coloured plain comment box
-//
-// Parameters:
-// - title: (optional) a title in bold small caps
-// - content:
-#let comment-box(title: [], content) = context {
+/// A theme-coloured plain comment box
+#let comment-box(
+  /// Will be shown in bold small caps -> content
+  title: [], 
+  /// -> content
+  content
+) = context {
   let col = theme-colour.get();
 
   block(
@@ -370,12 +405,13 @@
 }
 
 
-// A theme-coloured fancy comment box with decorations
-//
-// Parameters:
-// - title: (optional) a title in bold small caps
-// - content:
-#let fancy-comment-box(title: [], content) = context {
+/// A theme-coloured fancy comment box with decorations
+#let fancy-comment-box(
+  /// Will be shown in bold small caps -> content
+  title: [], 
+  /// -> content
+  content
+) = context {
   let col = theme-colour.get();
 
   block(
@@ -410,10 +446,6 @@
         colours.shadow, colours.shadow.transparentize(100%), angle: 90deg
       ))
     )
-    // #place(
-    //   top + left, 
-    //   rect(width: 2pt, height: 1fr, stroke: none, fill: blue)
-    // )
 
     #place(  // bottom left
       bottom,
@@ -429,8 +461,11 @@
 }
 
 
-// makes a small caps title block (e.g. for table titles)
-#let sctitle(content) = context {
+/// makes a small caps title block (e.g. for table titles)
+#let sctitle(
+  /// -> content
+  content
+) = context {
   block(
     above: 0.8em, below: 0.2em,
     {
@@ -441,11 +476,24 @@
 }
 
 
-// creates a dnd-formatted table
-// the use of this table is identical to the default table() interface, EXCEPT
-// you do not have access to stroke, fill, or inset
+/// Creates a dnd-formatted table.
+/// 
+/// The use of this table is identical to the default table() interface, EXCEPT
+/// you do not have access to stroke, fill, or inset
 #let dndtable(
-  columns: (), rows: (), gutter: (), column-gutter: (), row-gutter: (), align: auto, 
+  /// ->auto|int|relative|fraction|array
+  columns: (), 
+  /// ->auto|int|relative|fraction|array
+  rows: (), 
+  /// ->auto|int|relative|fraction|array
+  gutter: (), 
+  /// ->auto|int|relative|fraction|array
+  column-gutter: (), 
+  /// ->auto|int|relative|fraction|array
+  row-gutter: (), 
+  /// -> auto|array|alignment|function
+  align: auto, 
+  /// -> content
   ..children
 ) = context {
   let col = theme-colour.get()
@@ -463,7 +511,7 @@
 }
 
 
-// begins the monster statblock environment
+/// Begins the monster statblock environment. See *Statblock module* documentation.
 #let begin-stat(content) = context {
   
   block(
@@ -482,7 +530,7 @@
 }
 
 
-// begins the item environment
+/// Begins the item environment. See *Item module* documentation.
 #let begin-item(content) = context {
 
   block(

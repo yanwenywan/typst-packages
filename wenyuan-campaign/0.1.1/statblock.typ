@@ -95,8 +95,18 @@
   doc
 }
 
+
 /// displays a DnD dice average format, e.g. 19 (3d6 + 9) given the number of dice, the sides of dice, and a modifier (which can be set to 0 for no modifier)
-#let dice-raw(num-dice, dice-face, modifier) = {
+/// 
+/// Not necessarily recommended to be used directly; use `dice` for an easier interface.
+#let dice-raw(
+  /// -> int
+  num-dice, 
+  /// -> int
+  dice-face,
+  /// -> int 
+  modifier
+) = {
   let average = calc.floor(((dice-face + 1)/2) * num-dice + modifier)
   if (modifier > 0) {
     [#average (#num-dice;d#dice-face + #modifier)]
@@ -107,13 +117,18 @@
   }
 }
 
+
 /// Calculates and displays a DnD dice average from a string formatted roll
 /// accepts strings of the following form:
 /// - 0d0 (where 0 means any integer number)
 /// - 0d0+0 
+/// - `\d+d\d+(\+\d+)?`
 /// and will accept strings with any number of spaces (but no other characters)
 /// it is the user's responsibility to ensure that the formatting is correct
-#let dice(value) = {
+#let dice(
+  /// -> str
+  value
+) = {
   let stripped = value.replace(regex("\\s"), "")
 
   let negative = false
@@ -126,7 +141,6 @@
   }
 
   let numbers = dice_mod.at(0).split("d")
-  // repr(numbers)
   let numDice = int(numbers.at(0))
   let diceValue = int(numbers.at(1))
 
@@ -136,7 +150,6 @@
     if (negative) {
         modifier = -modifier
     }
-    // repr(modifier)
   } else {
     modifier = 0
   }
@@ -144,10 +157,14 @@
   dice-raw(numDice, diceValue, modifier)
 }
 
+
 /// takes an integer CR and formats with experience
 /// will do nothing if CR is not a standard number
 /// represent non integer CRs as decimals
-#let challenge(cr) = {
+#let challenge(
+  /// -> int
+  cr
+) = {
   if (str(cr) in challenge-xp.keys()) {
     [#cr (#challenge-xp.at(str(cr)) XP)]
   } else {
@@ -156,13 +173,18 @@
 }
 
 
+/// Draws a stroke
 #let stroke() = {
   line(stroke: (paint: gradient.linear(dndred, dndred.transparentize(100%)), thickness: 1.5pt), length: 100%)
 }
 
-/// header block for monster stats
+
+/// Header block for monster stats.
 #let statheading(
-  title-text, desc: []
+  /// Usually for the name of the monster. -> str|content
+  title-text, 
+  /// The little italic bit of description that says stuff like _Medium undead, lawful evil_. -> content
+  desc: []
 ) = context [
   #{
     set text(font: current-title-font.get(), fill: dndred, size: current-font-size.get() * 1.8)
@@ -174,18 +196,35 @@
   #stroke()
 ]
 
+
 /// a skills or stats entry like:
 /// - *Hit Points* 60 (8d8 + 24)
 /// - *Senses* Passive perception 15
 /// the title is the thing in bold and the contents can be anything
-#let skill(title, contents) = [
+#let skill(
+  /// -> content
+  title, 
+  /// -> content
+  contents
+) = [
   #set text(dndred) 
   *#title* #contents 
 ]
 
-/// AC, HP, Speed stats
-/// expects hp_dice as a valid dice value. If you don't want to use this just use hp_etc
-#let mainstats(ac: "", hp-dice: "", speed: "30ft", hp-etc: "") = [
+
+/// AC, HP, Speed stats as one generated block.
+/// 
+/// Expects hp_dice as a valid dice value. If you don't want to use this just use hp_etc
+#let mainstats(
+  /// Armour class -> str
+  ac: "", 
+  /// Dice amount for HP, which will be calculated -> str
+  hp-dice: "", 
+  /// Speed -> str
+  speed: "30ft", 
+  /// Freeform HP text, can be used in conjunction or not -> str
+  hp-etc: ""
+) = [
   #skill("Armor Class", ac) \
   #if (hp-dice != "") [
     #skill("Hit Points")[#dice(hp-dice) #hp-etc]
@@ -195,8 +234,22 @@
   #skill("Speed", speed)
 ]
 
+
 /// calculates and properly displays ability scores
-#let ability(str, dex, con, int, wis, cha) = {
+#let ability(
+  /// -> int
+  str, 
+  /// -> int
+  dex, 
+  /// -> int
+  con, 
+  /// -> int
+  int, 
+  /// -> int
+  wis, 
+  /// -> int
+  cha
+) = {
   let abilities = (str, dex, con, int, wis, cha)
   let modifiers = ()
   for abil in abilities {

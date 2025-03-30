@@ -57,11 +57,13 @@
   content
 }
 
+/// An italic block quote for the flavour text of this item
 #let flavourtext(content) = [
   #set text(style: "italic")
   #block(inset: (left: 1em), content)
 ]
 
+/// If you need any small text
 #let smalltext(content) = context {
   v(-theme-size.get()*0.5)
   set text(size: theme-size.get() * 0.9, style: "italic", fill: dndred)
