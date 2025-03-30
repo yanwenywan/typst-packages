@@ -1,6 +1,8 @@
 # wenyuan-campaign
 
-A template for writing RPG campaigns imitating the 5e theme. This was made as a typst version of the $\LaTeX$ package [DnD 5e LaTeX Template](https://github.com/rpgtex/DND-5e-LaTeX-Template), though it is not functionally nor entirely visually similar.
+A template for writing RPG campaigns imitating the 5e theme. This was made as a typst version of the LaTeX package [DnD 5e LaTeX Template](https://github.com/rpgtex/DND-5e-LaTeX-Template), though it is not functionally nor entirely visually similar.
+
+***New in 0.1.1.*** `make-title` now exposes the page background and main title colour, allowing greater customisability. All gradient strokes now properly use transparency so they won't look weird on non-default backgrounds. 
 
 # Dependencies
 
@@ -14,12 +16,12 @@ Fonts:
 - Royal Initalen
 - 京華老宋体 KingHwa OldSong
 
-***Please note: in an effort to reduce the file size of the template, fonts are included in MY repository only, not in the typst official one.*** You may find the fonts in my [github repository in the fonts folder](https://github.com/yanwenywan/typst-packages/tree/master/wenyuan-campaign/0.1.0/template/fonts), or download them yourself, or heck provide your own fonts to your liking.
+***Please note: in an effort to reduce the file size of the template, fonts are not included.*** See the footer for sources to the font files, you will have to download them yourself, or configure the template to use your own fonts!
 
 # Usage
 
 ```
-typst init @preview/wenyuan-campaign:0.1.0
+typst init @preview/wenyuan-campaign:0.1.1
 ```
 
 This will copy over all required fonts and comes prefilled with the standard template so you can see how it works. To use this you need to either install all the fonts locally or pass the folder into --font-path when compiling.
@@ -29,7 +31,7 @@ This will copy over all required fonts and comes prefilled with the standard tem
 To initialise the style, do:
 
 ```typ
-#import "@preview/wenyuan-campaign:0.1.0": *
+#import "@preview/wenyuan-campaign:0.1.1": *
 
 #show: conf.with() 
 ```
@@ -39,7 +41,7 @@ Very easy.
 Optionally, you may set all the theme fonts from the configure function (the defaults are shown):
 
 ```typ
-#import "@preview/wenyuan-campaign:0.1.0": *
+#import "@preview/wenyuan-campaign:0.1.1": *
 
 #show: conf.with(
     fontsize: 10pt,
@@ -62,7 +64,7 @@ The colours recommended are:
 
 ---
 
-**make-title**`(title: content, subtitle: content = [], author: content = [], date: content = [], anything-before: content = [], anything-after: content = [])`.  
+**make-title**`(title: content, subtitle: content = [], author: content = [], date: content = [], anything-before: content = [], anything-after: content = [], page-background: content = none, text-colour: color = colours.dndred)`.  
 Makes a simple title page.
 
 Parameters:  
@@ -72,6 +74,8 @@ Parameters:
 - date: (optional) -- just acts as a separate line, can be used for anything else  
 - anything-before: (optional) this is put before the title  
 - anything-after: (optional) this is put after the date  
+- page-background: (optional) used as the title page background
+- text-colour: (optional) used as the main title text colour
 
 ---
 

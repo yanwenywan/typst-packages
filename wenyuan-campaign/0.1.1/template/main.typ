@@ -1,6 +1,5 @@
 
 #import "@preview/wenyuan-campaign:0.1.1": *
-// #import "../campaign.typ": *
 
 #show: conf.with()
 
