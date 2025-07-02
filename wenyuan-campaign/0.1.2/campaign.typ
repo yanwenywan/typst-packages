@@ -164,9 +164,8 @@
   // ========================
   show outline.entry.where(level: 1): entry => strong(entry)
   show outline: outl => {
-    set page(columns: 1)
-    set heading(level: 1)
-    columns(2, outl)
+    outl
+    pagebreak()
   }
 
   set outline(depth: 3)
