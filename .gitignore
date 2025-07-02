@@ -1,4 +1,4 @@
 **/*.pdf
-!wenyuan-campaign/**/sample.pdf
-!wenyuan-campaign/**/docs.pdf
+!sample.pdf
+!docs.pdf
 .vscode
