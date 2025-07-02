@@ -1,5 +1,5 @@
 #import "@preview/tidy:0.4.2"
-#import "@preview/wenyuan-campaign:0.1.1" as wenyuan
+#import "@preview/wenyuan-campaign:0.1.2" as wenyuan
 
 // #set page(columns: 2)
 

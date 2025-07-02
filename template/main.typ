@@ -1,5 +1,5 @@
 
-#import "@preview/wenyuan-campaign:0.1.1": *
+#import "@preview/wenyuan-campaign:0.1.2": *
 
 #show: conf.with()
 
@@ -9,7 +9,7 @@
   author: [燕文院 Yanwenyuan],
   date: [2024],
   page-background: rect(fill: colours.dmglavender, width: 100%, height: 100%),
-  anything-after: [ver. 0.1.1]
+  anything-after: [ver. 0.1.2]
 )
 
 #outline(indent: 1em)
